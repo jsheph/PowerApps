@@ -1,0 +1,234 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_approvals": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "contoso_sharedapprovals_75558"
+        },
+        "api": {
+          "name": "shared_approvals"
+        }
+      },
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "pu_sharedcommondataserviceforapps_34c6f"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_teams": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "pharv3_sharedteams_1c023"
+        },
+        "api": {
+          "name": "shared_teams"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "When_a_row_is_added,_modified_or_deleted": {
+          "metadata": {
+            "operationMetadataId": "d4fc1b6f-e68e-4154-9001-827785e31831"
+          },
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "subscriptionRequest/message": 1,
+              "subscriptionRequest/entityname": "contoso_machineorder",
+              "subscriptionRequest/scope": 4
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "actions": {
+        "Start_and_wait_for_an_approval": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "2ffeddff-3312-45b5-ac3e-bc1c71cf6eac"
+          },
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_approvals",
+              "operationId": "StartAndWaitForAnApproval",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_approvals"
+            },
+            "parameters": {
+              "approvalType": "Basic",
+              "WebhookApprovalCreationInput/title": "New machine request for @{triggerOutputs()?['body/contoso_machineorder']}",
+              "WebhookApprovalCreationInput/assignedTo": "@{triggerOutputs()?['body/contoso_approver']};",
+              "WebhookApprovalCreationInput/details": "A new machine has been requested\n@{triggerOutputs()?['body/contoso_machineorder']}, $@{triggerOutputs()?['body/contoso_price']}\nDepartment Contribution: $@{triggerOutputs()?['body/contoso_departmentcontribution']}\nComments: @{triggerOutputs()?['body/contoso_comments']}",
+              "WebhookApprovalCreationInput/requestor": "@{triggerOutputs()?['body/contoso_requestedby']};",
+              "WebhookApprovalCreationInput/enableNotifications": true,
+              "WebhookApprovalCreationInput/enableReassignment": true
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Condition": {
+          "actions": {
+            "Update_a_row": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "148762ab-4691-42d5-8863-b5bd16c5d9e2"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "UpdateRecord",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "contoso_machineorders",
+                  "recordId": "@triggerOutputs()?['body/contoso_machineorderid']",
+                  "item/contoso_approvalstatus": 330650000,
+                  "item/contoso_approveddate": "@utcNow()"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Compose": {
+              "runAfter": {
+                "Update_a_row": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "8628f979-26ed-4dfb-bc7c-00c30a17f978"
+              },
+              "type": "Compose",
+              "inputs": "@{outputs('Update_a_row')?['body/contoso_requestedby']}\nYour machine order has been approved @{outputs('Update_a_row')?['body/contoso_machineorder']}\nEstimated Ship Date: @{outputs('Update_a_row')?['body/contoso_estimatedshipdate']}\n@{outputs('Start_and_wait_for_an_approval')?['body/responseSummary']}"
+            },
+            "Post_message_in_a_chat_or_channel": {
+              "runAfter": {
+                "Compose": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "500668b5-091e-4a8c-8584-632148b549c3"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_teams",
+                  "operationId": "PostMessageToConversation",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_teams"
+                },
+                "parameters": {
+                  "poster": "Flow bot",
+                  "location": "Chat with Flow bot",
+                  "body/recipient": "beet.bolder.0z@learnwithpowerup.onmicrosoft.com",
+                  "body/messageBody": "<p>@{outputs('Compose')}</p>"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            }
+          },
+          "runAfter": {
+            "Start_and_wait_for_an_approval": [
+              "Succeeded"
+            ]
+          },
+          "else": {
+            "actions": {
+              "Update_a_row_2": {
+                "runAfter": {},
+                "metadata": {
+                  "operationMetadataId": "486ac784-bdc7-41e1-acef-4a1e57c0a557"
+                },
+                "type": "OpenApiConnection",
+                "inputs": {
+                  "host": {
+                    "connectionName": "shared_commondataserviceforapps",
+                    "operationId": "UpdateRecord",
+                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                  },
+                  "parameters": {
+                    "entityName": "contoso_machineorders",
+                    "recordId": "@triggerOutputs()?['body/contoso_machineorderid']",
+                    "item/contoso_approvalstatus": 330650001
+                  },
+                  "authentication": "@parameters('$authentication')"
+                }
+              },
+              "Compose_2": {
+                "runAfter": {
+                  "Update_a_row_2": [
+                    "Succeeded"
+                  ]
+                },
+                "metadata": {
+                  "operationMetadataId": "712af577-c179-4041-aa81-4a7826638dd4"
+                },
+                "type": "Compose",
+                "inputs": "@{outputs('Update_a_row_2')?['body/contoso_requestedby']}\nYour machine was not approved.\nSorry, your request for @{outputs('Update_a_row_2')?['body/contoso_machineorder']} was NOT APPROVED.\n@{outputs('Start_and_wait_for_an_approval')?['body/responseSummary']}"
+              },
+              "Post_message_in_a_chat_or_channel_2": {
+                "runAfter": {
+                  "Compose_2": [
+                    "Succeeded"
+                  ]
+                },
+                "metadata": {
+                  "operationMetadataId": "83e39ef9-f50b-4ab7-ac18-f11d00c62589"
+                },
+                "type": "OpenApiConnection",
+                "inputs": {
+                  "host": {
+                    "connectionName": "shared_teams",
+                    "operationId": "PostMessageToConversation",
+                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_teams"
+                  },
+                  "parameters": {
+                    "poster": "Flow bot",
+                    "location": "Chat with Flow bot",
+                    "body/recipient": "beet.bolder.0z@learnwithpowerup.onmicrosoft.com",
+                    "body/messageBody": "<p>@{outputs('Compose_2')}</p>"
+                  },
+                  "authentication": "@parameters('$authentication')"
+                }
+              }
+            }
+          },
+          "expression": {
+            "equals": [
+              "@outputs('Start_and_wait_for_an_approval')?['body/outcome']",
+              "Approve"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "e5e051e8-6e07-49af-912e-cf793df6b432"
+          },
+          "type": "If"
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}
