@@ -1,0 +1,211 @@
+<ImportExportXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Entities></Entities>
+  <Roles></Roles>
+  <Workflows></Workflows>
+  <FieldSecurityProfiles></FieldSecurityProfiles>
+  <Templates />
+  <EntityMaps />
+  <EntityRelationships />
+  <OrganizationSettings />
+  <optionsets />
+  <CustomControls />
+  <AppModuleSiteMaps>
+    <AppModuleSiteMap>
+      <SiteMapUniqueName>pu_MyLoansManagerwithCustomPage</SiteMapUniqueName>
+      <EnableCollapsibleGroups>False</EnableCollapsibleGroups>
+      <ShowHome>True</ShowHome>
+      <ShowPinned>True</ShowPinned>
+      <ShowRecents>True</ShowRecents>
+      <SiteMap IntroducedVersion="7.0.0.0">
+        <Area Id="area_3b1f69b5" ResourceId="SitemapDesigner.NewTitle" DescriptionResourceId="SitemapDesigner.NewTitle" ShowGroups="true" IntroducedVersion="7.0.0.0">
+          <Titles>
+            <Title LCID="1033" Title="Area1" />
+          </Titles>
+          <Group Id="group_b58f6fe7" ResourceId="SitemapDesigner.NewGroup" DescriptionResourceId="SitemapDesigner.NewGroup" IntroducedVersion="7.0.0.0" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown">
+            <SubArea Id="subarea_910a60ab" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="pu_author" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" />
+            <SubArea Id="subarea_4fd36b9e" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="pu_bookcopies" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" />
+            <SubArea Id="subarea_0c5cc375" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="pu_book" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" />
+            <SubArea Id="subarea_5526900e" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="contact" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" />
+            <SubArea Id="subarea_28a650cf" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="pu_loans" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" />
+            <SubArea Id="subarea_cc693b7f" Icon="/_imgs/imagestrips/transparent_spacer.gif" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" Page="pu_loanscheckincheckout_fb218">
+              <Titles>
+                <Title LCID="1033" Title="Loans check-in check-out - Custom page" />
+              </Titles>
+            </SubArea>
+            <SubArea Id="subarea_39cd37c2" Icon="/_imgs/imagestrips/transparent_spacer.gif" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" Page="pu_myloansdashboardcustompage_407e8">
+              <Titles>
+                <Title LCID="1033" Title="My Loans Dashboard Custom Page" />
+              </Titles>
+            </SubArea>
+          </Group>
+        </Area>
+      </SiteMap>
+      <LocalizedNames>
+        <LocalizedName description="My Loans Manager with Custom Page" languagecode="1033" />
+      </LocalizedNames>
+    </AppModuleSiteMap>
+  </AppModuleSiteMaps>
+  <AppModules>
+    <AppModule>
+      <UniqueName>pu_MyLoansManagerwithCustomPage</UniqueName>
+      <IntroducedVersion>1.0.0.0</IntroducedVersion>
+      <WebResourceId>953b9fac-1e5e-e611-80d6-00155ded156f</WebResourceId>
+      <OptimizedFor></OptimizedFor>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+      <FormFactor>1</FormFactor>
+      <ClientType>4</ClientType>
+      <NavigationType>0</NavigationType>
+      <AppModuleComponents>
+        <AppModuleComponent type="1" schemaName="pu_author" />
+        <AppModuleComponent type="1" schemaName="contact" />
+        <AppModuleComponent type="1" schemaName="pu_loans" />
+        <AppModuleComponent type="1" schemaName="pu_book" />
+        <AppModuleComponent type="1" schemaName="pu_bookcopies" />
+        <AppModuleComponent type="62" schemaName="pu_MyLoansManagerwithCustomPage" />
+      </AppModuleComponents>
+      <AppModuleRoleMaps>
+        <Role id="{627090ff-40a3-4053-8790-584edc5be201}" />
+        <Role id="{119f245c-3cc8-4b62-b31c-d1a046ced15d}" />
+      </AppModuleRoleMaps>
+      <LocalizedNames>
+        <LocalizedName description="My Loans Manager with Custom Page" languagecode="1033" />
+      </LocalizedNames>
+      <appelements>
+        <appelement uniquename="pu_pu_MyLoansManagerwithCustomPage_canvasappid_pu_loanscheckincheckout_fb218">
+          <canvasappid>
+            <name>pu_loanscheckincheckout_fb218</name>
+          </canvasappid>
+          <iscustomizable>1</iscustomizable>
+          <name>pu_pu_MyLoansManagerwithCustomPage_canvasappid_pu_loanscheckincheckout_fb218</name>
+        </appelement>
+        <appelement uniquename="pu_pu_MyLoansManagerwithCustomPage_canvasappid_pu_myloansdashboardcustompage_407e8">
+          <canvasappid>
+            <name>pu_myloansdashboardcustompage_407e8</name>
+          </canvasappid>
+          <iscustomizable>1</iscustomizable>
+          <name>pu_pu_MyLoansManagerwithCustomPage_canvasappid_pu_myloansdashboardcustompage_407e8</name>
+        </appelement>
+      </appelements>
+      <appsettings>
+        <appsetting settingdefinitionid.uniquename="AppChannel">
+          <iscustomizable>1</iscustomizable>
+          <value>1</value>
+        </appsetting>
+      </appsettings>
+    </AppModule>
+  </AppModules>
+  <EntityDataProviders />
+  <CanvasApps>
+    <CanvasApp>
+      <Name>pu_loanscheckincheckout_fb218</Name>
+      <AppVersion>2024-03-22T02:18:07Z</AppVersion>
+      <Status>Ready</Status>
+      <CreatedByClientVersion>3.23122.20.0</CreatedByClientVersion>
+      <MinClientVersion>3.23122.20.0</MinClientVersion>
+      <Tags>{"primaryDeviceWidth":"1366","primaryDeviceHeight":"768","supportsPortrait":"true","supportsLandscape":"true","primaryFormFactor":"Tablet","showStatusBar":"false","publisherVersion":"3.23122.20","minimumRequiredApiVersion":"2.2.0","hasComponent":"false","hasUnlockedComponent":"false","isUnifiedRootApp":"false","offlineLargeFilesSupport":"false","sienaVersion":"20240111T112735Z-3.23122.19.0"}</Tags>
+      <IsCdsUpgraded>0</IsCdsUpgraded>
+      <GalleryItemId xsi:nil="true"></GalleryItemId>
+      <BackgroundColor>RGBA(0,176,240,1)</BackgroundColor>
+      <DisplayName>Loans check-in check-out - Custom page</DisplayName>
+      <Description></Description>
+      <CommitMessage></CommitMessage>
+      <Publisher></Publisher>
+      <AuthorizationReferences>[]</AuthorizationReferences>
+      <ConnectionReferences>{}</ConnectionReferences>
+      <DatabaseReferences>{"default.cds":{"databaseDetails":{"referenceType":"Environmental","environmentName":"default.cds","overrideValues":{"status":"NotSpecified","environmentVariableName":""}},"dataSources":{"BookCopies":{"entitySetName":"pu_bookcopieses","logicalName":"pu_bookcopies"},"Books":{"entitySetName":"pu_books","logicalName":"pu_book"},"Contacts":{"entitySetName":"contacts","logicalName":"contact"},"Loans":{"entitySetName":"pu_loanses","logicalName":"pu_loans"}}}}</DatabaseReferences>
+      <AppComponents>[]</AppComponents>
+      <AppComponentDependencies>[]</AppComponentDependencies>
+      <CanConsumeAppPass>1</CanConsumeAppPass>
+      <CanvasAppType>2</CanvasAppType>
+      <BypassConsent>0</BypassConsent>
+      <EmbeddedApp xsi:nil="true"></EmbeddedApp>
+      <IntroducedVersion>1.0</IntroducedVersion>
+      <CdsDependencies>{"cdsdependencies":[{"componenttype":1,"logicalname":"pu_bookcopies"},{"componenttype":1,"logicalname":"pu_book"},{"componenttype":1,"logicalname":"contact"},{"componenttype":1,"logicalname":"pu_loans"}]}</CdsDependencies>
+      <IsCustomizable>1</IsCustomizable>
+      <BackgroundImageUri>/CanvasApps/pu_loanscheckincheckout_fb218_BackgroundImageUri</BackgroundImageUri>
+      <DocumentUri>/CanvasApps/pu_loanscheckincheckout_fb218_DocumentUri.msapp</DocumentUri>
+      <AdditionalUris>
+        <AdditionalUri>/CanvasApps/pu_loanscheckincheckout_fb218_AdditionalUris0_identity.json</AdditionalUri>
+      </AdditionalUris>
+    </CanvasApp>
+    <CanvasApp>
+      <Name>pu_myloansdashboardcustompage_407e8</Name>
+      <AppVersion>2024-03-31T02:24:12Z</AppVersion>
+      <Status>Ready</Status>
+      <CreatedByClientVersion>3.24032.26.0</CreatedByClientVersion>
+      <MinClientVersion>3.24032.26.0</MinClientVersion>
+      <Tags>{"primaryDeviceWidth":"1366","primaryDeviceHeight":"768","supportsPortrait":"true","supportsLandscape":"true","primaryFormFactor":"Tablet","showStatusBar":"false","publisherVersion":"3.24032.26","minimumRequiredApiVersion":"2.2.0","hasComponent":"false","hasUnlockedComponent":"false","isUnifiedRootApp":"false"}</Tags>
+      <IsCdsUpgraded>0</IsCdsUpgraded>
+      <GalleryItemId xsi:nil="true"></GalleryItemId>
+      <BackgroundColor>RGBA(0,176,240,1)</BackgroundColor>
+      <DisplayName>My Loans Dashboard Custom Page</DisplayName>
+      <Description xsi:nil="true"></Description>
+      <CommitMessage xsi:nil="true"></CommitMessage>
+      <Publisher xsi:nil="true"></Publisher>
+      <AuthorizationReferences>[]</AuthorizationReferences>
+      <ConnectionReferences>{}</ConnectionReferences>
+      <DatabaseReferences>{"default.cds":{"databaseDetails":{"referenceType":"Environmental","environmentName":"default.cds","overrideValues":{"status":"NotSpecified","environmentVariableName":""}},"dataSources":{"Loans":{"entitySetName":"pu_loanses","logicalName":"pu_loans"}}}}</DatabaseReferences>
+      <AppComponents>[]</AppComponents>
+      <AppComponentDependencies>[]</AppComponentDependencies>
+      <CanConsumeAppPass>1</CanConsumeAppPass>
+      <CanvasAppType>2</CanvasAppType>
+      <BypassConsent>0</BypassConsent>
+      <AdminControlBypassConsent>0</AdminControlBypassConsent>
+      <EmbeddedApp xsi:nil="true"></EmbeddedApp>
+      <IntroducedVersion>1.0</IntroducedVersion>
+      <CdsDependencies>{"cdsdependencies":[{"logicalname":"pu_loans","componenttype":1}]}</CdsDependencies>
+      <IsCustomizable>1</IsCustomizable>
+      <BackgroundImageUri>/CanvasApps/pu_myloansdashboardcustompage_407e8_BackgroundImageUri</BackgroundImageUri>
+      <DocumentUri>/CanvasApps/pu_myloansdashboardcustompage_407e8_DocumentUri.msapp</DocumentUri>
+      <AdditionalUris>
+        <AdditionalUri>/CanvasApps/pu_myloansdashboardcustompage_407e8_AdditionalUris0_identity.json</AdditionalUri>
+      </AdditionalUris>
+    </CanvasApp>
+    <CanvasApp>
+      <Name>pu_mylibrarymanagerappcanvasapp_ac693</Name>
+      <AppVersion>2024-03-31T01:55:54Z</AppVersion>
+      <Status>Ready</Status>
+      <CreatedByClientVersion>3.24032.26.0</CreatedByClientVersion>
+      <MinClientVersion>3.24032.26.0</MinClientVersion>
+      <Tags>{"primaryDeviceWidth":"1366","primaryDeviceHeight":"768","supportsPortrait":"true","supportsLandscape":"true","primaryFormFactor":"Tablet","showStatusBar":"false","publisherVersion":"3.24032.26","minimumRequiredApiVersion":"2.2.0","hasComponent":"false","hasUnlockedComponent":"false","isUnifiedRootApp":"false","offlineLargeFilesSupport":"false","sienaVersion":"20240329T045335Z-3.24032.26.0"}</Tags>
+      <IsCdsUpgraded>0</IsCdsUpgraded>
+      <GalleryItemId xsi:nil="true"></GalleryItemId>
+      <BackgroundColor>rgba(241, 244, 249, 1)</BackgroundColor>
+      <DisplayName>My Library Manager App (Canvas App)</DisplayName>
+      <Description xsi:nil="true"></Description>
+      <CommitMessage xsi:nil="true"></CommitMessage>
+      <Publisher xsi:nil="true"></Publisher>
+      <AuthorizationReferences>[]</AuthorizationReferences>
+      <ConnectionReferences>{}</ConnectionReferences>
+      <DatabaseReferences>{"default.cds":{"databaseDetails":{"referenceType":"Environmental","environmentName":"default.cds","overrideValues":{"status":"NotSpecified","environmentVariableName":""}},"dataSources":{"Loans":{"entitySetName":"pu_loanses","logicalName":"pu_loans"},"BookCopies":{"entitySetName":"pu_bookcopieses","logicalName":"pu_bookcopies"},"Contacts":{"entitySetName":"contacts","logicalName":"contact"},"Books":{"entitySetName":"pu_books","logicalName":"pu_book"}}}}</DatabaseReferences>
+      <AppComponents>[]</AppComponents>
+      <AppComponentDependencies>[]</AppComponentDependencies>
+      <CanConsumeAppPass>1</CanConsumeAppPass>
+      <CanvasAppType>0</CanvasAppType>
+      <BypassConsent>0</BypassConsent>
+      <AdminControlBypassConsent>0</AdminControlBypassConsent>
+      <EmbeddedApp xsi:nil="true"></EmbeddedApp>
+      <IntroducedVersion>1.0</IntroducedVersion>
+      <CdsDependencies>{"cdsdependencies":[{"logicalname":"pu_loans","componenttype":1},{"logicalname":"pu_bookcopies","componenttype":1},{"logicalname":"contact","componenttype":1},{"logicalname":"pu_book","componenttype":1}]}</CdsDependencies>
+      <IsCustomizable>1</IsCustomizable>
+      <BackgroundImageUri>/CanvasApps/pu_mylibrarymanagerappcanvasapp_ac693_BackgroundImageUri</BackgroundImageUri>
+      <DocumentUri>/CanvasApps/pu_mylibrarymanagerappcanvasapp_ac693_DocumentUri.msapp</DocumentUri>
+      <AdditionalUris>
+        <AdditionalUri>/CanvasApps/pu_mylibrarymanagerappcanvasapp_ac693_AdditionalUris0_identity.json</AdditionalUri>
+      </AdditionalUris>
+    </CanvasApp>
+  </CanvasApps>
+  <connectionreferences>
+    <connectionreference connectionreferencelogicalname="pu_sharedcommondataserviceforapps_34c6f">
+      <connectionreferencedisplayname>Microsoft Dataverse MySchoolLibrarySolution-34c6f</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+  </connectionreferences>
+  <Languages>
+    <Language>1033</Language>
+  </Languages>
+</ImportExportXml>
