@@ -1,0 +1,204 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_teams": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "pharv3_sharedteams_1c023"
+        },
+        "api": {
+          "name": "shared_teams"
+        }
+      },
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "pu_sharedcommondataserviceforapps_34c6f"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "When_a_row_is_added,_modified_or_deleted": {
+          "metadata": {
+            "operationMetadataId": "1751ab89-d626-46cb-8329-5fbdd4acf9cc"
+          },
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "subscriptionRequest/message": 3,
+              "subscriptionRequest/entityname": "pharv3_animaltable",
+              "subscriptionRequest/scope": 4
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "actions": {
+        "Condition": {
+          "actions": {
+            "Post_message_in_a_chat_or_channel": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "0aa7c50f-9c51-4270-95ed-a4482cd05154"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_teams",
+                  "operationId": "PostMessageToConversation",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_teams"
+                },
+                "parameters": {
+                  "poster": "Flow bot",
+                  "location": "Chat with Flow bot",
+                  "body/recipient": "beet.bolder.0z@learnwithpowerup.onmicrosoft.com",
+                  "body/messageBody": "<p>Hello @{outputs('Get_a_row_by_ID')?['body/pharv3_fosterclaimername']},<br>\n<br>\n@{triggerOutputs()?['body/pharv3_name']} will be ready for pickup on @{addDays(outputs('Compose_2'), 5, 'MM/dd/yyyy')}. The address for @{triggerOutputs()?['body/pharv3_currentlocation']} is @{outputs('Get_a_row_by_ID_2')?['body/pharv3_shelterlocation']}.<br>\n<br>\n<strong>Summary:</strong><br>\n@{triggerOutputs()?['body/pharv3_name']} is a @{triggerOutputs()?['body/pharv3_age']} year old @{outputs('Compose_3')} with the following medical conditions: @{triggerOutputs()?['body/pharv3_medicalconditions']}.<br>\n<br>\nKind Regards,</p>"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            }
+          },
+          "runAfter": {
+            "Compose_3": [
+              "Succeeded"
+            ]
+          },
+          "expression": {
+            "equals": [
+              "@triggerOutputs()?['body/pharv3_shelterstatus']",
+              7
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "65d33426-3974-4c52-a51d-b578b062c0a4"
+          },
+          "type": "If"
+        },
+        "Get_a_row_by_ID": {
+          "runAfter": {
+            "Compose_2": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "465fae5a-cd65-4ae5-98b9-9da96500acb3"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "GetItem",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "pharv3_fosterfamilytables",
+              "recordId": "@triggerOutputs()?['body/_pharv3_fosterclaimer_value']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Compose": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "537e8704-2ade-4287-a277-a9adf789e50c"
+          },
+          "type": "Compose",
+          "inputs": "Name: @{triggerOutputs()?['body/pharv3_name']}\nCurrent Location: @{triggerOutputs()?['body/pharv3_currentlocation']}\nDate of Foster: @{triggerOutputs()?['body/pharv3_dateoffoster']}\nFoster Claimer Table Name@{triggerOutputs()?['body/_pharv3_fosterclaimer_type']}\nFoster Claimer Type@{triggerOutputs()?['body/_pharv3_fosterclaimer_value@Microsoft.Dynamics.CRM.lookuplogicalname']}\nFoster Claimer Value @{triggerOutputs()?['body/_pharv3_fosterclaimer_value']}\nInitial Shelter Table Name @{triggerOutputs()?['body/_pharv3_initialshelter_type']}\nInitial Shelter Type @{triggerOutputs()?['body/_pharv3_initialshelter_value@Microsoft.Dynamics.CRM.lookuplogicalname']}\nInitial Shelter Value @{triggerOutputs()?['body/_pharv3_initialshelter_value']}\nShelter Status @{triggerOutputs()?['body/pharv3_shelterstatus']}\n"
+        },
+        "Compose_2": {
+          "runAfter": {
+            "Compose": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "860376e8-7a49-4a33-8efb-6fb7b7eb3383"
+          },
+          "type": "Compose",
+          "inputs": "@formatDateTime(triggerOutputs()?['body/pharv3_dateoffoster'],'MM/dd/yyyy')"
+        },
+        "Get_a_row_by_ID_2": {
+          "runAfter": {
+            "Get_a_row_by_ID": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "d0f58a5d-a3fd-4c5d-b984-4318e48b9ad6"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "GetItem",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "pharv3_sheltertables",
+              "recordId": "@triggerOutputs()?['body/_pharv3_initialshelter_value']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Get_a_row_by_ID_3": {
+          "runAfter": {
+            "Get_a_row_by_ID_2": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "9c3d7ff2-ee5f-435e-af35-1af26b1aa9d6"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "GetItem",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "pharv3_animaltables",
+              "recordId": "@triggerOutputs()?['body/pharv3_animaltableid']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Compose_3": {
+          "runAfter": {
+            "Get_a_row_by_ID_3": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "ea323ed7-0ce2-47c8-8759-5540fe8a50d1"
+          },
+          "type": "Compose",
+          "inputs": "@outputs('Get_a_row_by_ID_3')?['body/pharv3_type@OData.Community.Display.V1.FormattedValue']\n"
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

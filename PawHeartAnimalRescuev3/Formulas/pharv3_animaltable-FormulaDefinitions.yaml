@@ -1,0 +1,26 @@
+pharv3_currentlocation: |-
+    =Switch(
+        ThisRecord.pharv3_shelterstatus,
+    
+        pharv3_animaltable_pharv3_animaltable_pharv3_shelterstatus.'3',
+        ThisRecord.pharv3_InitialShelter.pharv3_sheltername,
+    
+        pharv3_animaltable_pharv3_animaltable_pharv3_shelterstatus.'1',
+        ThisRecord.pharv3_InitialShelter.pharv3_sheltername,
+    
+        pharv3_animaltable_pharv3_animaltable_pharv3_shelterstatus.'7',
+        ThisRecord.pharv3_InitialShelter.pharv3_sheltername,
+    
+        pharv3_animaltable_pharv3_animaltable_pharv3_shelterstatus.'4',
+        ThisRecord.pharv3_FosterClaimer.pharv3_fosterclaimername,
+    
+        pharv3_animaltable_pharv3_animaltable_pharv3_shelterstatus.'5',
+        ThisRecord.pharv3_FosterClaimer.pharv3_fosterclaimername,
+    
+        pharv3_animaltable_pharv3_animaltable_pharv3_shelterstatus.'6',
+        ThisRecord.pharv3_FosterClaimer.pharv3_fosterclaimername,
+    
+        pharv3_animaltable_pharv3_animaltable_pharv3_shelterstatus.'2',
+        Text("Adopted by: ")&ThisRecord.pharv3_adopter
+    
+        )
